@@ -64,7 +64,7 @@ function deleteTaskHandler() {
 function moveTasks() {
     const addTaskToDoneButtons = document.querySelectorAll('.add_task_to_done'),
         returnTaskToToDoButtons = document.querySelectorAll('.return_task_to_to-do');
-        
+
     addTaskToDoneButtons.forEach(button => {
         button.removeEventListener('click', moveTaskToDoneHandler);
         button.addEventListener('click', moveTaskToDoneHandler);
@@ -128,10 +128,33 @@ function returnTaskToToDoHandler() {
     updateDoneTaskCount();
 }
 
+function enableTaskEditing() {
+    const taskItems = document.querySelectorAll('.to-do-list_item'),
+        taskTextSpan = item.querySelector('.task-to-do');
+  
+    taskItems.forEach(item => {
+      taskTextSpan.addEventListener('click', function() {
+        taskTextSpan.contentEditable = true;
+        taskTextSpan.focus();
+      });
+  
+      taskTextSpan.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          taskTextSpan.blur();
+        }
+      });
+  
+      taskTextSpan.addEventListener('blur', function() {
+        taskTextSpan.contentEditable = false;
+      });
+    });
+  }
+
 document.addEventListener('DOMContentLoaded', function () {
     updateToDoTaskCount();
     updateDoneTaskCount();
     deleteTask();
     moveTasks();
     setupEventListeners();
+    enableTaskEditing();
 });
