@@ -77,6 +77,9 @@ body {
 }
 
 .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
     list-style-type: none;
     padding: 0;
 }
@@ -86,12 +89,21 @@ body {
     align-items: center;
     justify-content: space-between;
     width: 390px;
-    height: 75px;
+    min-height: 75px;
+    height: fit-content;
     background-color: #15101C;
     list-style-type: none;
-    margin-top: 15px;
     border-radius: 10px;
     padding: 0 20px;
+}
+
+.task-to-do {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 300px;
+    height: auto;
+    margin: 20px 0;
 }
 
 .to-do_buttons {
@@ -139,15 +151,21 @@ body {
     align-items: center;
     justify-content: space-between;
     width: 390px;
-    height: 75px;
+    min-height: 75px;
+    height: fit-content;
     background-color: #15101C;
     list-style-type: none;
     border-radius: 10px;
-    margin-top: 15px;
     padding: 0 20px;
 }
 
 .task-is-done {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 300px;
+    height: auto;
+    margin: 20px 0;
     color: #78CFB0;
     text-decoration: line-through;
 }
