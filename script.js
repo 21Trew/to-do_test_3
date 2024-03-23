@@ -70,6 +70,15 @@ function moveTaskToDoneHandler() {
 
     taskItem.classList.remove('to-do-list_item');
     taskItem.classList.add('is-done-list_item');
+
+    const taskTextSpan = taskItem.querySelector('.task-to-do');
+    taskTextSpan.classList.remove('task-to-do');
+    taskTextSpan.classList.add('task-is-done');
+
+    const taskButtonsDiv = taskItem.querySelector('.to-do_buttons');
+    taskButtonsDiv.classList.remove('to-do_buttons');
+    taskButtonsDiv.classList.add('is-done_buttons');
+
     doneList.appendChild(taskItem);
 
     this.classList.remove('add_task_to_done');
@@ -87,6 +96,15 @@ function returnTaskToToDoHandler() {
 
     taskItem.classList.remove('is-done-list_item');
     taskItem.classList.add('to-do-list_item');
+
+    const taskTextSpan = taskItem.querySelector('.task-is-done');
+    taskTextSpan.classList.remove('task-is-done');
+    taskTextSpan.classList.add('task-to-do');
+
+    const taskButtonsDiv = taskItem.querySelector('.is-done_buttons');
+    taskButtonsDiv.classList.remove('is-done_buttons');
+    taskButtonsDiv.classList.add('to-do_buttons');
+
     toDoList.appendChild(taskItem);
 
     this.classList.remove('return_task_to_to-do');
