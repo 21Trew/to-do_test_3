@@ -1,20 +1,19 @@
-const newTaskInput = document.getElementById('new-task'),
-    taskList = document.getElementById('to-do-list'),
-    toDoListTitle = document.querySelector('.to-do_container_task-list_title'),
-    doneListTitle = document.querySelector('.is-done_container_task-list_title');
-
 function addNewTask() {
-    const taskText = newTaskInput.value.trim(),
+    const newTaskInput = document.getElementById('new-task'),
+        taskText = newTaskInput.value.trim(),
+        taskList = document.getElementById('to-do-list'),
         newTaskItem = document.createElement('li');
+
     if (taskText !== '') {
         newTaskItem.classList.add('to-do-list_item');
         newTaskItem.innerHTML = `
-        <span class="task-to-do">${taskText}</span>
-        <div class="to-do_buttons">
-            <button class="add_task_to_done"></button>
-            <button class="delete_task"></button>
-        </div>
-    `;
+            <span class="task-to-do">${taskText}</span>
+            <div class="to-do_buttons">
+                <button class="add_task_to_done"></button>
+                <button class="delete_task"></button>
+            </div>
+        `;
+
         taskList.appendChild(newTaskItem);
         newTaskInput.value = '';
         updateToDoTaskCount();
@@ -23,22 +22,28 @@ function addNewTask() {
     }
 }
 
-newTaskInput.addEventListener('keyup', function (event) {
-    if (event.key === 'Enter') {
-        addNewTask();
-    }
-});
+function setupEventListeners() {
+    const addNewTaskButton = document.getElementById('add__new-task');
+    const newTaskInput = document.getElementById('new-task');
 
-const addNewTaskButton = document.getElementById('add__new-task');
-addNewTaskButton.addEventListener('click', addNewTask);
+    newTaskInput.addEventListener('keyup', function (event) {
+        if (event.key === 'Enter') {
+            addNewTask();
+        }
+    });
+
+    addNewTaskButton.addEventListener('click', addNewTask);
+}
 
 function updateToDoTaskCount() {
-    const toDoListItems = document.querySelectorAll('.to-do-list_item');
+    const toDoListItems = document.querySelectorAll('.to-do-list_item'),
+        toDoListTitle = document.querySelector('.to-do_container_task-list_title');
     toDoListTitle.textContent = `Tasks to do - ${toDoListItems.length}`;
 }
 
 function updateDoneTaskCount() {
-    const doneListItems = document.querySelectorAll('.is-done-list_item');
+    const doneListItems = document.querySelectorAll('.is-done-list_item'),
+        doneListTitle = document.querySelector('.is-done_container_task-list_title');
     doneListTitle.textContent = `Done - ${doneListItems.length}`;
 }
 
@@ -121,4 +126,5 @@ document.addEventListener('DOMContentLoaded', function () {
     updateDoneTaskCount();
     deleteTask();
     moveTasks();
+    setupEventListeners();
 });
