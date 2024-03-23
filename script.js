@@ -62,10 +62,17 @@ function deleteTaskHandler() {
 }
 
 function moveTasks() {
-    const addTaskToDoneButtons = document.querySelectorAll('.add_task_to_done');
+    const addTaskToDoneButtons = document.querySelectorAll('.add_task_to_done'),
+        returnTaskToToDoButtons = document.querySelectorAll('.return_task_to_to-do');
+        
     addTaskToDoneButtons.forEach(button => {
         button.removeEventListener('click', moveTaskToDoneHandler);
         button.addEventListener('click', moveTaskToDoneHandler);
+    });
+
+    returnTaskToToDoButtons.forEach(button => {
+        button.removeEventListener('click', returnTaskToToDoHandler);
+        button.addEventListener('click', returnTaskToToDoHandler);
     });
 }
 
