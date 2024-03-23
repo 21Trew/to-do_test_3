@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>TO-DO</title>
+    <meta property="og:title" content="TO-DO">
+    <meta property="og:description" content="test case">
+    <meta property="og:image" content="https://example.com/image.jpg">
+    <meta property="og:url" content="https://example.com/">
+</head>
+
+<body>
+    <section class="main-container">
+        <section class="to-do_container">
+            <article class="to-do_container_input-form">
+                <input class="new-task" id="new-task" name="new-task" placeholder="Add a new task" />
+                <button class="add__new-task" id="add__new-task"></button>
+            </article>
+            <article class="to-do_container_task-list">
+                <p class="list_title to-do_container_task-list_title">Tasks to do - </p>
+                <ul class="task-list to-do-list" id="to-do-list">
+                    <li class="to-do-list_item">
+                        <span class="task-to-do">To study React fundamentals</span>
+                        <div class="to-do_buttons">
+                            <button class="add_task_to_done"></button>
+                            <button class="delete_task"></button>
+                        </div>
+                    </li>
+                    <li class="to-do-list_item">
+                        <span class="task-to-do">To study React fundamentals</span>
+                        <div class="to-do_buttons">
+                            <button class="add_task_to_done"></button>
+                            <button class="delete_task"></button>
+                        </div>
+                    </li>
+                    <li class="to-do-list_item">
+                        <span class="task-to-do">To study React fundamentals</span>
+                        <div class="to-do_buttons">
+                            <button class="add_task_to_done"></button>
+                            <button class="delete_task"></button>
+                        </div>
+                    </li>
+                    <li class="to-do-list_item">
+                        <span class="task-to-do">To study React fundamentals</span>
+                        <div class="to-do_buttons">
+                            <button class="add_task_to_done"></button>
+                            <button class="delete_task"></button>
+                        </div>
+                    </li>
+                </ul>
+            </article>
+            <article class="to-do_container_task-list is-done-container">
+                <p class="list_title is-done_container_task-list_title">Done - </p>
+                <ul class="task-list is-done-list">
+                    <li class="is-done-list_item">
+                        <span class="task-is-done">To study React fundamentals</span>
+                        <div class="is-done_buttons">
+                            <button class="return_task_to_to-do"></button>
+                            <button class="delete_task"></button>
+                        </div>
+                    </li>
+                    <li class="is-done-list_item">
+                        <span class="task-is-done">To study React fundamentals</span>
+                        <div class="is-done_buttons">
+                            <button class="return_task_to_to-do"></button>
+                            <button class="delete_task"></button>
+                        </div>
+                    </li>
+                </ul>
+            </article>
+        </section>
+    </section>
+
+    <script src="./script.js"></script>
+
+</body>
+
+</html>
