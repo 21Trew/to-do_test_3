@@ -19,7 +19,7 @@ function addNewTask() {
         newTaskInput.value = '';
         updateToDoTaskCount();
         deleteTask();
-        moveTaskToDone();
+        moveTasks();
     }
 }
 
@@ -56,7 +56,7 @@ function deleteTaskHandler() {
     updateDoneTaskCount();
 }
 
-function moveTaskToDone() {
+function moveTasks() {
     const addTaskToDoneButtons = document.querySelectorAll('.add_task_to_done');
     addTaskToDoneButtons.forEach(button => {
         button.removeEventListener('click', moveTaskToDoneHandler);
@@ -66,16 +66,16 @@ function moveTaskToDone() {
 
 function moveTaskToDoneHandler() {
     const taskItem = this.parentElement.parentElement,
+        taskTextSpan = taskItem.querySelector('.task-to-do'),
+        taskButtonsDiv = taskItem.querySelector('.to-do_buttons'),
         doneList = document.querySelector('.is-done-list');
 
     taskItem.classList.remove('to-do-list_item');
     taskItem.classList.add('is-done-list_item');
 
-    const taskTextSpan = taskItem.querySelector('.task-to-do');
     taskTextSpan.classList.remove('task-to-do');
     taskTextSpan.classList.add('task-is-done');
 
-    const taskButtonsDiv = taskItem.querySelector('.to-do_buttons');
     taskButtonsDiv.classList.remove('to-do_buttons');
     taskButtonsDiv.classList.add('is-done_buttons');
 
@@ -92,16 +92,16 @@ function moveTaskToDoneHandler() {
 
 function returnTaskToToDoHandler() {
     const taskItem = this.parentElement.parentElement,
+        taskTextSpan = taskItem.querySelector('.task-is-done'),
+        taskButtonsDiv = taskItem.querySelector('.is-done_buttons'),
         toDoList = document.getElementById('to-do-list');
 
     taskItem.classList.remove('is-done-list_item');
     taskItem.classList.add('to-do-list_item');
 
-    const taskTextSpan = taskItem.querySelector('.task-is-done');
     taskTextSpan.classList.remove('task-is-done');
     taskTextSpan.classList.add('task-to-do');
 
-    const taskButtonsDiv = taskItem.querySelector('.is-done_buttons');
     taskButtonsDiv.classList.remove('is-done_buttons');
     taskButtonsDiv.classList.add('to-do_buttons');
 
@@ -120,5 +120,5 @@ document.addEventListener('DOMContentLoaded', function () {
     updateToDoTaskCount();
     updateDoneTaskCount();
     deleteTask();
-    moveTaskToDone();
+    moveTasks();
 });
