@@ -1,3 +1,9 @@
+function saveTasksToLocalStorage(listType) {
+    const taskItems = document.querySelectorAll(`.${listType}-list_item`),
+        tasks = Array.from(taskItems).map(item => item.textContent).join(',');
+    localStorage.setItem(listType, tasks);
+}
+
 function addNewTask() {
     const newTaskInput = document.getElementById('new-task'),
         taskText = newTaskInput.value.trim(),
@@ -19,12 +25,14 @@ function addNewTask() {
         updateToDoTaskCount();
         deleteTask();
         moveTasks();
+        editTask();
+        saveTasksToLocalStorage('to-do');
     }
 }
 
 function setupEventListeners() {
-    const addNewTaskButton = document.getElementById('add__new-task');
-    const newTaskInput = document.getElementById('new-task');
+    const addNewTaskButton = document.getElementById('add__new-task'),
+        newTaskInput = document.getElementById('new-task');
 
     newTaskInput.addEventListener('keyup', function (event) {
         if (event.key === 'Enter') {
@@ -100,6 +108,8 @@ function moveTaskToDoneHandler() {
 
     updateToDoTaskCount();
     updateDoneTaskCount();
+    saveTasksToLocalStorage('to-do');
+    saveTasksToLocalStorage('is-done');
 }
 
 function returnTaskToToDoHandler() {
@@ -126,35 +136,39 @@ function returnTaskToToDoHandler() {
 
     updateToDoTaskCount();
     updateDoneTaskCount();
+    saveTasksToLocalStorage('to-do');
+    saveTasksToLocalStorage('is-done');
 }
 
-function enableTaskEditing() {
-    const taskItems = document.querySelectorAll('.to-do-list_item'),
-        taskTextSpan = item.querySelector('.task-to-do');
-  
+function editTask() {
+    const taskItems = document.querySelectorAll('.to-do-list_item, .is-done-list_item');
+
     taskItems.forEach(item => {
-      taskTextSpan.addEventListener('click', function() {
-        taskTextSpan.contentEditable = true;
-        taskTextSpan.focus();
-      });
-  
-      taskTextSpan.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-          taskTextSpan.blur();
-        }
-      });
-  
-      taskTextSpan.addEventListener('blur', function() {
-        taskTextSpan.contentEditable = false;
-      });
+        const taskTextSpan = item.querySelector('.task-to-do, .task-is-done');
+        taskTextSpan.addEventListener('click', function () {
+            taskTextSpan.contentEditable = true;
+            taskTextSpan.focus();
+        });
+
+        taskTextSpan.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                taskTextSpan.blur();
+            }
+        });
+
+        taskTextSpan.addEventListener('blur', function () {
+            taskTextSpan.contentEditable = false;
+        });
     });
-  }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
+    saveTasksToLocalStorage('to-do');
+    saveTasksToLocalStorage('is-done');
     updateToDoTaskCount();
     updateDoneTaskCount();
     deleteTask();
     moveTasks();
     setupEventListeners();
-    enableTaskEditing();
+    editTask();
 });
