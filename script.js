@@ -4,6 +4,44 @@ function saveTasksToLocalStorage(listType) {
     localStorage.setItem(listType, tasks);
 }
 
+function savedToDoTasks() {
+    const savedToDoTasks = localStorage.getItem('to-do');
+    if (savedToDoTasks) {
+        const toDoList = document.getElementById('to-do-list');
+        savedToDoTasks.split(',').forEach(taskText => {
+            const newTaskItem = document.createElement('li');
+            newTaskItem.classList.add('to-do-list_item');
+            newTaskItem.innerHTML = `
+                <span class="task-to-do">${taskText}</span>
+                <div class="to-do_buttons">
+                    <button class="add_task_to_done"></button>
+                    <button class="delete_task"></button>
+                </div>
+            `;
+            toDoList.appendChild(newTaskItem);
+        });
+    }
+}
+
+function savedDoneTasks() {
+    const savedDoneTasks = localStorage.getItem('is-done');
+    if (savedDoneTasks) {
+        const doneList = document.querySelector('.is-done-list');
+        savedDoneTasks.split(',').forEach(taskText => {
+            const newTaskItem = document.createElement('li');
+            newTaskItem.classList.add('is-done-list_item');
+            newTaskItem.innerHTML = `
+                <span class="task-is-done">${taskText}</span>
+                <div class="is-done_buttons">
+                    <button class="return_task_to_to-do"></button>
+                    <button class="delete_task"></button>
+                </div>
+            `;
+            doneList.appendChild(newTaskItem);
+        });
+    }
+}
+
 function addNewTask() {
     const newTaskInput = document.getElementById('new-task'),
         taskText = newTaskInput.value.trim(),
@@ -20,7 +58,8 @@ function addNewTask() {
             </div>
         `;
 
-        taskList.appendChild(newTaskItem);
+        taskList.insertAdjacentHTML('beforeend', newTaskItem.outerHTML);
+
         newTaskInput.value = '';
         updateToDoTaskCount();
         deleteTask();
@@ -98,7 +137,7 @@ function moveTaskToDoneHandler() {
 
     taskButtonsDiv.classList.remove('to-do_buttons');
     taskButtonsDiv.classList.add('is-done_buttons');
-
+    
     doneList.appendChild(taskItem);
 
     this.classList.remove('add_task_to_done');
@@ -163,6 +202,8 @@ function editTask() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    savedToDoTasks();
+    savedDoneTasks();
     saveTasksToLocalStorage('to-do');
     saveTasksToLocalStorage('is-done');
     updateToDoTaskCount();
