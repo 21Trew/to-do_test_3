@@ -1,0 +1,193 @@
+html {
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    background-color: #0D0714;
+}
+
+.main-container {
+    margin: 0 auto;
+    height: fit-content;
+    overflow-x: hidden;
+}
+
+.to-do_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+}
+
+/* add new task form | start */
+
+.to-do_container_input-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    gap: 10px;
+    width: 430px;
+    height: 40px;
+    margin-top: 75px;
+    padding: 0;
+}
+
+.new-task {
+    border: 1px solid #3d1570;
+    border-radius: 10px;
+    height: 38px;
+    width: 370px;
+    padding-left: 10px;
+    color: #777;
+    background-color: #0D0714;
+    font-family: Inter, sans-serif;
+}
+
+.add__new-task {
+    width: 40px;
+    height: 40px;
+    background: url(./images/Plus.svg) no-repeat center;
+    background-color: #9e77cf;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.add__new-task:hover {
+    background-color: #3d1570;
+}
+
+/* add new task form | end */
+
+/* tasks to do | start */
+
+.to-do_container_task-list {
+    width: 430px;
+    margin-top: 60px;
+    border: none;
+    color: #fff;
+    font-family: Inter, sans-serif;
+    border-radius: 10px;
+}
+
+.list_title {
+    margin: 0;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.to-do-list_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 390px;
+    min-height: 75px;
+    height: fit-content;
+    background-color: #15101C;
+    list-style-type: none;
+    border-radius: 10px;
+    padding: 0 20px;
+}
+
+.task-to-do {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 300px;
+    height: auto;
+    margin: 20px 0;
+}
+
+.to-do_buttons {
+    display: flex;
+}
+
+.add_task_to_done {
+    width: 40px;
+    height: 40px;
+    background-color: #15101C;
+    background: url(./images/CheckLight.svg) no-repeat center;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.add_task_to_done:hover {
+    background: url(./images/CheckDark.svg) no-repeat center;
+}
+
+.delete_task {
+    width: 40px;
+    height: 40px;
+    background-color: #15101C;
+    background: url(./images/TrashSimpleLight.svg) no-repeat center;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.delete_task:hover {
+    background: url(./images/TrashSimpleDark.svg) no-repeat center;
+}
+
+/* tasks to do | end */
+
+/* tasks done | start */
+
+.is-done-container {
+    margin-top: 45px;
+}
+
+.is-done-list_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 390px;
+    min-height: 75px;
+    height: fit-content;
+    background-color: #15101C;
+    list-style-type: none;
+    border-radius: 10px;
+    padding: 0 20px;
+}
+
+.task-is-done {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 300px;
+    height: auto;
+    margin: 20px 0;
+    color: #78CFB0;
+    text-decoration: line-through;
+}
+
+.is-done_buttons {
+    display: flex;
+}
+
+.return_task_to_to-do {
+    width: 40px;
+    height: 40px;
+    background-color: #15101C;
+    background: url(./images/ReplaceLight.svg) no-repeat center;
+    background-size: 20px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.return_task_to_to-do:hover {
+    background: url(./images/ReplaceDark.svg) no-repeat center;
+    background-size: 20px 20px;
+}
+
+/* tasks done | end */
