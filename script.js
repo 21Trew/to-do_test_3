@@ -30,6 +30,8 @@ class Task {
             taskList.taskIsInToDoList(li) ? this.addTaskToDone(li) : this.returnTaskToToDo(li);
         });
 
+        this.edit();
+
         return li;
     }
 
@@ -75,6 +77,28 @@ class Task {
 
         uiManager.updateTaskCounts();
         uiManager.saveTasksToLocalStorage();
+    }
+
+    edit() {
+        const taskItems = document.querySelectorAll('.to-do-list_item, .is-done-list_item');
+    
+        taskItems.forEach(item => {
+            const taskTextSpan = item.querySelector('.task-to-do, .task-is-done');
+            taskTextSpan.addEventListener('click', function () {
+                taskTextSpan.contentEditable = true;
+                taskTextSpan.focus();
+            });
+    
+            taskTextSpan.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    taskTextSpan.blur();
+                }
+            });
+    
+            taskTextSpan.addEventListener('blur', function () {
+                taskTextSpan.contentEditable = false;
+            });
+        });
     }
 }
 
