@@ -13,8 +13,8 @@ class Task {
         li.className = 'to-do-list_item';
         taskSpan.className = 'task-to-do';
         taskSpan.textContent = this.text;
-        buttonsDiv.className = 'to-do_buttons';        
-        addTaskToDoneButton.className = "add_task_to_done";        
+        buttonsDiv.className = 'to-do_buttons';
+        addTaskToDoneButton.className = "add_task_to_done";
         deleteTaskButton.className = "delete_task";
 
         buttonsDiv.appendChild(addTaskToDoneButton);
@@ -40,7 +40,7 @@ class Task {
     addTaskToDone(taskElement) {
         const doneList = document.querySelector('.is-done-list'),
             index = taskList.tasks.indexOf(taskElement);
-            
+
         taskElement.className = 'is-done-list_item';
         taskElement.firstChild.className = 'task-is-done';
         taskElement.lastChild.className = 'is-done_buttons';
@@ -60,18 +60,18 @@ class Task {
         const toDoList = document.querySelector('.to-do-list'),
             doneList = document.querySelector('.is-done-list'),
             index = taskList.tasks.indexOf(taskElement);
-    
+
         taskElement.className = 'to-do-list_item';
         taskElement.firstChild.className = 'task-to-do';
         taskElement.lastChild.className = 'to-do_buttons';
         taskElement.lastChild.firstChild.className = 'add_task_to_done';
-    
+
         toDoList.appendChild(taskElement);
-    
+
         if (index > -1) {
             taskList.tasks.splice(index, 1);
         }
-    
+
         uiManager.updateTaskCounts();
         uiManager.saveTasksToLocalStorage();
     }
@@ -100,15 +100,15 @@ class TaskList {
 
 class LocalStorageManager {
     constructor() {
-        this.localStorage = {};
+        this.localStorage = window.localStorage;
     }
 
     setItem(key, value) {
-        this.localStorage[key] = value;
+        this.localStorage.setItem(key, value);
     }
 
     getItem(key) {
-        return this.localStorage[key];
+        return this.localStorage.getItem(key);
     }
 }
 
@@ -122,8 +122,8 @@ class UIManager {
     }
 
     saveTasksToLocalStorage() {
-        const tasksToDo = Array.from(this.toDoList.children).map(li => li.firstChild.textContent).join(','),
-            tasksDone = Array.from(this.doneList.children).map(li => li.firstChild.textContent).join(',');
+        const tasksToDo = Array.from(this.toDoList.children).map(li => li.firstChild.textContent).join('|'),
+            tasksDone = Array.from(this.doneList.children).map(li => li.firstChild.textContent).join('|');
 
         localStorageManager.setItem('to-do', tasksToDo);
         localStorageManager.setItem('is-done', tasksDone);
@@ -134,16 +134,24 @@ class UIManager {
             savedDoneTasks = localStorageManager.getItem('is-done');
 
         if (savedToDoTasks) {
-            savedToDoTasks.split(',').forEach(taskText => {
+            savedToDoTasks.split('|').forEach(taskText => {
                 const newTask = new Task(taskText);
+
                 this.toDoList.appendChild(newTask.add());
             });
         }
 
         if (savedDoneTasks) {
-            savedDoneTasks.split(',').forEach(taskText => {
-                const newTask = new Task(taskText);
-                this.doneList.appendChild(newTask.add());
+            savedDoneTasks.split('|').forEach(taskText => {
+                const newTask = new Task(taskText),
+                    taskElement = newTask.add();
+
+                taskElement.className = 'is-done-list_item';
+                taskElement.firstChild.className = 'task-is-done';
+                taskElement.lastChild.className = 'is-done_buttons';
+                taskElement.lastChild.firstChild.className = 'return_task_to_to-do';
+
+                this.doneList.appendChild(taskElement);
             });
         }
 
@@ -152,13 +160,13 @@ class UIManager {
 
     addNewTask() {
         const taskText = this.taskInput.value.trim();
+
         if (taskText !== '') {
             const newTask = new Task(taskText);
             this.taskInput.value = '';
             this.toDoList.appendChild(newTask.add());
             this.updateTaskCounts();
             this.saveTasksToLocalStorage();
-
         }
     }
 
@@ -185,11 +193,10 @@ class UIManager {
     }
 }
 
-const localStorageManager = new LocalStorageManager();
-const taskList = new TaskList();
-const uiManager = new UIManager();
+const localStorageManager = new LocalStorageManager(),
+    taskList = new TaskList(),
+    uiManager = new UIManager(localStorageManager);
 
-// Инициализация списка задач
 uiManager.loadTasksFromLocalStorage();
 
 if (uiManager.toDoCount && uiManager.doneCount) {
