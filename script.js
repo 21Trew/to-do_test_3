@@ -220,10 +220,13 @@ class UIManager {
         }.bind(this));
 
         addNewTaskButton.addEventListener('click', this.addNewTask.bind(this));
+
+        task.edit();
     }
 }
 
 const localStorageManager = new LocalStorageManager(),
+    task = new Task(),
     taskList = new TaskList(),
     uiManager = new UIManager(localStorageManager);
 
