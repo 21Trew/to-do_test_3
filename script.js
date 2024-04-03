@@ -35,6 +35,7 @@ class Task {
 
     remove(taskElement) {
         taskElement.remove();
+        uiManager.updateTaskCounts();
     }
 
     addTaskToDone(taskElement) {
@@ -171,9 +172,14 @@ class UIManager {
     }
 
     updateTaskCounts() {
-        if (this.toDoCount && this.doneCount) {
-            this.toDoCount.textContent = this.toDoList.children.length;
-            this.doneCount.textContent = this.doneList.children.length;
+        const tasksToDoCount = this.toDoList.children.length,
+            tasksDoneCount = this.doneList.children.length,
+            toDoCounter = document.querySelector('.to-do_container_task-list_title'),
+            doneCounter = document.querySelector('.is-done_container_task-list_title');
+    
+        if (toDoCounter && doneCounter) {
+            toDoCounter.textContent = `Tasks to do -  ${tasksToDoCount}`;
+            doneCounter.textContent = `Done -  ${tasksDoneCount}`;
         }
     }
 
