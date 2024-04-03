@@ -155,7 +155,6 @@ class UIManager {
     }
 }
 
-// Создание экземпляров классов и инициализация
 const localStorageManager = new LocalStorageManager();
 const taskList = new TaskList();
 const uiManager = new UIManager();
