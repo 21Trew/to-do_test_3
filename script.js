@@ -67,6 +67,8 @@ class TaskList {
         this.updateTaskCounts();
         this.saveTasksToLocalStorage();
     }
+
+    // Другие методы для управления локальным хранилищем
 }
 
 class LocalStorageManager {
@@ -147,6 +149,7 @@ class UIManager {
 
         newTaskInput.addEventListener('keyup', function (event) {
             if (event.key === 'Enter') {
+                this.addNewTask();
                 this.addNewTask();
             }
         }.bind(this));
