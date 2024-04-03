@@ -12,7 +12,7 @@ class Task {
 
         li.className = 'to-do-list_item';
         taskSpan.className = 'task-to-do';
-        taskSpan.textContent = this.text;        
+        taskSpan.textContent = this.text;
         buttonsDiv.className = 'to-do_buttons';        
         addTaskToDoneButton.className = "add_task_to_done";        
         deleteTaskButton.className = "delete_task";
@@ -26,11 +26,29 @@ class Task {
             this.remove(li);
         });
 
+        addTaskToDoneButton.addEventListener('click', () => {
+            this.addTaskToDone(li);
+        });
+
         return li;
     }
 
     remove(taskElement) {
         taskElement.remove();
+    }
+
+    addTaskToDone(taskElement) {
+        const doneList = document.querySelector('.is-done-list'),
+            index = taskList.tasks.indexOf(taskElement);
+            
+        doneList.appendChild(taskElement);
+
+        if (index > -1) {
+            taskList.tasks.splice(index, 1);
+        }
+
+        uiManager.updateTaskCounts();
+        uiManager.saveTasksToLocalStorage();
     }
 }
 
@@ -44,9 +62,10 @@ class TaskList {
         this.tasks.push(task);
     }
 
-    moveTaskToDone(task) {
-        this.tasks = this.tasks.filter(t => t !== task);
-        this.doneTasks.push(task);
+    addTaskToDone(taskElement) {
+        this.doneList.appendChild(taskElement);
+        this.updateTaskCounts();
+        this.saveTasksToLocalStorage();
     }
 }
 
@@ -138,6 +157,7 @@ class UIManager {
 
 // Создание экземпляров классов и инициализация
 const localStorageManager = new LocalStorageManager();
+const taskList = new TaskList();
 const uiManager = new UIManager();
 
 // Инициализация списка задач
