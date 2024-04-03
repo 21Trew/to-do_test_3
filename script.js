@@ -193,6 +193,8 @@ class UIManager {
             this.updateTaskCounts();
             this.saveTasksToLocalStorage();
         }
+
+        task.edit();
     }
 
     updateTaskCounts() {
