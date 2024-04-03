@@ -27,7 +27,7 @@ class Task {
         });
 
         addTaskToDoneButton.addEventListener('click', () => {
-            this.addTaskToDone(li);
+            taskList.taskIsInToDoList(li) ? this.addTaskToDone(li) : this.returnTaskToToDo(li);
         });
 
         return li;
@@ -41,12 +41,37 @@ class Task {
         const doneList = document.querySelector('.is-done-list'),
             index = taskList.tasks.indexOf(taskElement);
             
+        taskElement.className = 'is-done-list_item';
+        taskElement.firstChild.className = 'task-is-done';
+        taskElement.lastChild.className = 'is-done_buttons';
+        taskElement.lastChild.firstChild.className = 'return_task_to_to-do';
+
         doneList.appendChild(taskElement);
 
         if (index > -1) {
             taskList.tasks.splice(index, 1);
         }
 
+        uiManager.updateTaskCounts();
+        uiManager.saveTasksToLocalStorage();
+    }
+
+    returnTaskToToDo(taskElement) {
+        const toDoList = document.querySelector('.to-do-list'),
+            doneList = document.querySelector('.is-done-list'),
+            index = taskList.tasks.indexOf(taskElement);
+    
+        taskElement.className = 'to-do-list_item';
+        taskElement.firstChild.className = 'task-to-do';
+        taskElement.lastChild.className = 'to-do_buttons';
+        taskElement.lastChild.firstChild.className = 'add_task_to_done';
+    
+        toDoList.appendChild(taskElement);
+    
+        if (index > -1) {
+            taskList.tasks.splice(index, 1);
+        }
+    
         uiManager.updateTaskCounts();
         uiManager.saveTasksToLocalStorage();
     }
@@ -68,7 +93,9 @@ class TaskList {
         this.saveTasksToLocalStorage();
     }
 
-    // Другие методы для управления локальным хранилищем
+    taskIsInToDoList(taskElement) {
+        return taskElement.parentElement.classList.contains('to-do-list');
+    }
 }
 
 class LocalStorageManager {
